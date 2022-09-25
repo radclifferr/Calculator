@@ -24,33 +24,26 @@ function makeButtons () {
 makeButtons();
 getInput();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 function operate (dataBank) {
-    let runningTotal = parseInt(dataBank[0].match(/[1-9]+/g));
+    let runningTotal = 0;
+    sendOutput(runningTotal);
+    runningTotal = parseInt(dataBank[0].match(/[1-9]+/g));
     for (i = 0; i < dataBank.length; i ++){
         if (dataBank.at(i).at(-1) ==="+"){
             runningTotal = add(runningTotal, dataBank[i+1]);
+            sendOutput(runningTotal);
         }else if (dataBank.at(i).at(-1) ==="-"){
             runningTotal = subtract(runningTotal, dataBank[i+1]);
+            sendOutput(runningTotal);
         }else if (dataBank.at(i).at(-1) ==="*"){
             runningTotal = multiply(runningTotal, dataBank[i+1]);
+            sendOutput(runningTotal);
         }else if (dataBank.at(i).at(-1) ==="/"){
             runningTotal = divide(runningTotal, dataBank[i+1]);
+            sendOutput(runningTotal);
         }
-    }console.log(runningTotal);
-    sendOutput(runningTotal);
+    }sendOutput(runningTotal);
+    
     
 }
 
@@ -79,25 +72,29 @@ function getInput(){
             data += e.target.textContent; 
     if (e.target.textContent === "+"){
         sendOutput("");
-        dataBank.push(data)
-        data = []
+        dataBank.push(data);
+        data = [];
     }else if (e.target.textContent === "-"){
         sendOutput("");
-        dataBank.push(data)
-        data = []
+        dataBank.push(data);
+        data = [];
     }else if (e.target.textContent === "*"){
         sendOutput("");
-        dataBank.push(data)
-        data = []
+        dataBank.push(data);
+        data = [];
     }else if (e.target.textContent === "/"){
         sendOutput("");
-        dataBank.push(data)
-        data = []
+        dataBank.push(data);
+        data = [];
     }else if (e.target.textContent === "="){
         sendOutput("");
-        dataBank.push(data)
-        data = []
-        operate(dataBank)
+        dataBank.push(data);
+        data = [];
+        operate(dataBank);
+    }else if (e.target.textContent === "CE"){
+        sendOutput("0");
+        dataBank = [];
+        data = [];
     }else {
         sendOutput(data);
     }
