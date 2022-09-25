@@ -25,6 +25,7 @@ body {
     align-items: flex-end;
     font-size: 70px;
     background-color: white;
+    flex-wrap: wrap;
 
 }
 #buttonBox {
