@@ -27,16 +27,19 @@ getInput();
 dataBank = [];
 
 function operate (data) {
-    dataBank.push(data);
+    dataBank.push(data);  
     console.log(dataBank)
     data = [];
     let runningTotal = 0;
     if (dataBank.length >=2){
         runningTotal = parseInt(dataBank[0].match(/[1-9]+/g));
+        if (dataBank[1] ==="="){
+            dataBank[1] = dataBank[0] + "=";
+        }
+        console.log(dataBank[0], dataBank[1])
         for (i = 0; i < dataBank.length-1; i ++){
             if (dataBank.at(i).at(-1) ==="+"){
                 runningTotal = add(runningTotal, dataBank[i+1]);
-                console.log(dataBank[i]);
                 sendOutput(runningTotal);
             }else if (dataBank.at(i).at(-1) ==="-"){
                 runningTotal = subtract(runningTotal, dataBank[i+1]);
@@ -109,5 +112,7 @@ function getInput(){
 
 function sendOutput(target){
     const display = document.querySelector("#display");
-    display.textContent = target;
+    // target = target.toString();
+    // if (target.length > 10) target = target.substring(0,10);
+    display.textContent = Math.round(target * 100)/100;
 }
