@@ -24,27 +24,32 @@ function makeButtons () {
 makeButtons();
 getInput();
 
-function operate (dataBank) {
+dataBank = [];
+
+function operate (data) {
+    dataBank.push(data);
+    console.log(dataBank)
+    data = [];
     let runningTotal = 0;
-    sendOutput(runningTotal);
-    runningTotal = parseInt(dataBank[0].match(/[1-9]+/g));
-    for (i = 0; i < dataBank.length; i ++){
-        if (dataBank.at(i).at(-1) ==="+"){
-            runningTotal = add(runningTotal, dataBank[i+1]);
-            sendOutput(runningTotal);
-        }else if (dataBank.at(i).at(-1) ==="-"){
-            runningTotal = subtract(runningTotal, dataBank[i+1]);
-            sendOutput(runningTotal);
-        }else if (dataBank.at(i).at(-1) ==="*"){
-            runningTotal = multiply(runningTotal, dataBank[i+1]);
-            sendOutput(runningTotal);
-        }else if (dataBank.at(i).at(-1) ==="/"){
-            runningTotal = divide(runningTotal, dataBank[i+1]);
-            sendOutput(runningTotal);
-        }
-    }sendOutput(runningTotal);
-    
-    
+    if (dataBank.length >=2){
+        runningTotal = parseInt(dataBank[0].match(/[1-9]+/g));
+        for (i = 0; i < dataBank.length-1; i ++){
+            if (dataBank.at(i).at(-1) ==="+"){
+                runningTotal = add(runningTotal, dataBank[i+1]);
+                console.log(dataBank[i]);
+                sendOutput(runningTotal);
+            }else if (dataBank.at(i).at(-1) ==="-"){
+                runningTotal = subtract(runningTotal, dataBank[i+1]);
+                sendOutput(runningTotal);
+            }else if (dataBank.at(i).at(-1) ==="*"){
+                runningTotal = multiply(runningTotal, dataBank[i+1]);
+                sendOutput(runningTotal);
+            }else if (dataBank.at(i).at(-1) ==="/"){
+                runningTotal = divide(runningTotal, dataBank[i+1]);
+                sendOutput(runningTotal);
+            }
+        }sendOutput(runningTotal);
+    }
 }
 
 function add (runningTotal, rawString2) {
@@ -65,36 +70,36 @@ function divide (runningTotal, rawString2) {
 }
 function getInput(){
     data = [];
-    dataBank = [];
     let buttonPress = document.querySelectorAll("div.row");
+    sendOutput("0");
     for (i = 0; i<buttonPress.length; i++){
         buttonPress[i].addEventListener("click", (e) => {
             data += e.target.textContent; 
     if (e.target.textContent === "+"){
         sendOutput("");
-        dataBank.push(data);
+        operate(data);
         data = [];
     }else if (e.target.textContent === "-"){
         sendOutput("");
-        dataBank.push(data);
+        operate(data);
         data = [];
     }else if (e.target.textContent === "*"){
         sendOutput("");
-        dataBank.push(data);
+        operate(data);
         data = [];
     }else if (e.target.textContent === "/"){
         sendOutput("");
-        dataBank.push(data);
+        operate(data);
         data = [];
     }else if (e.target.textContent === "="){
         sendOutput("");
-        dataBank.push(data);
+        operate(data);
         data = [];
-        operate(dataBank);
     }else if (e.target.textContent === "CE"){
         sendOutput("0");
         dataBank = [];
         data = [];
+        
     }else {
         sendOutput(data);
     }
