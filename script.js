@@ -3,7 +3,7 @@ function makeButtons () {
     const numberOfColumns = 4;
     const numberOfRows = 5;
     let column1 = ["X", 7, 4, 1, null];
-    let column2 = ["C", 8, 5, 2, 0];
+    let column2 = ["CE", 8, 5, 2, 0];
     let column3 = [null, 9, 6, 3, "."];
     let column4 = ["/", "*", "-", "+","="];
     let columnData = [column1, column2, column3, column4];
@@ -37,50 +37,67 @@ getInput();
 
 
 
-function operate (input) {
-    if (operator === "+"){
-        add(number1, number2);
-    }else if (operator === "-"){
-        subtract(number1, number2);
-    }else if (operator === "*"){
-        multiply(number1, number2);
-    }else if (operator === "/"){
-        divide(number1, number2);
-    }
-}
-function add (number1,number2) {
-    return number1 + number2;
-}
-function subtract (number1,number2) {
-    return number1 - number2;
-}
-function multiply (number1,number2) {
-    return number1 * number2;
-}
-function divide (number1,number2) {
-    return number1 / number2;
+function operate (dataBank) {
+    let runningTotal = parseInt(dataBank[0].match(/[1-9]+/g));
+    for (i = 0; i < dataBank.length; i ++){
+        if (dataBank.at(i).at(-1) ==="+"){
+            runningTotal = add(runningTotal, dataBank[i+1]);
+        }else if (dataBank.at(i).at(-1) ==="-"){
+            runningTotal = subtract(runningTotal, dataBank[i+1]);
+        }else if (dataBank.at(i).at(-1) ==="*"){
+            runningTotal = multiply(runningTotal, dataBank[i+1]);
+        }else if (dataBank.at(i).at(-1) ==="/"){
+            runningTotal = divide(runningTotal, dataBank[i+1]);
+        }
+    }console.log(runningTotal);
+    sendOutput(runningTotal);
+    
 }
 
+function add (runningTotal, rawString2) {
+    num2 = parseInt(rawString2.match(/[1-9]+/g));
+    return runningTotal + num2;
+}
+function subtract (runningTotal, rawString2) {
+    num2 = parseInt(rawString2.match(/[1-9]+/g));
+    return runningTotal - num2;
+}
+function multiply (runningTotal, rawString2) {
+    num2 = parseInt(rawString2.match(/[1-9]+/g));
+    return runningTotal * num2;
+}
+function divide (runningTotal, rawString2) {
+    num2 = parseInt(rawString2.match(/[1-9]+/g));
+    return runningTotal / num2;
+}
 function getInput(){
-    data = []
+    data = [];
+    dataBank = [];
     let buttonPress = document.querySelectorAll("div.row");
     for (i = 0; i<buttonPress.length; i++){
         buttonPress[i].addEventListener("click", (e) => {
-            data += e.target.textContent;
-
-
-
-            
+            data += e.target.textContent; 
     if (e.target.textContent === "+"){
-        inputScrubber (data, "+")
+        sendOutput("");
+        dataBank.push(data)
+        data = []
     }else if (e.target.textContent === "-"){
-        sendOutput("-");
+        sendOutput("");
+        dataBank.push(data)
+        data = []
     }else if (e.target.textContent === "*"){
-        sendOutput("*");
+        sendOutput("");
+        dataBank.push(data)
+        data = []
     }else if (e.target.textContent === "/"){
-        sendOutput("/");
+        sendOutput("");
+        dataBank.push(data)
+        data = []
     }else if (e.target.textContent === "="){
-        sendOutput("=");
+        sendOutput("");
+        dataBank.push(data)
+        data = []
+        operate(dataBank)
     }else {
         sendOutput(data);
     }
@@ -91,8 +108,4 @@ function getInput(){
 function sendOutput(target){
     const display = document.querySelector("#display");
     display.textContent = target;
-}
-
-function inputScrubber (data, operand) {
-    console.log(data,operand)
 }
