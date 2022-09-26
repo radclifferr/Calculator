@@ -1,8 +1,7 @@
 getInput();
 dataBank = [];
 function operate (data) {
-    dataBank.push(data);
-    console.log(dataBank)  
+    dataBank.push(data);  
     data = [];
     let runningTotal = 0;
     if (dataBank.length >=2){
@@ -93,3 +92,28 @@ function sendOutput(target){
     const display = document.querySelector("#display");
     display.textContent = Math.round(target * 100)/100;
 }
+
+
+
+
+
+const column = document.querySelectorAll(".column");
+for (let i = 0; i < column.length; i++){
+    column[i].addEventListener("mouseover", function () {
+        column[i].classList.add("buttonHover");
+    });
+    column[i].addEventListener("mouseleave", function () {
+        column[i].classList.remove("buttonHover")
+    });
+    column[i].addEventListener("click", function () {
+        column[i].classList.add("buttonClick")
+    });
+    column[i].addEventListener("transitionend", removeTransition
+    );
+}
+
+function removeTransition(e) {
+    if (e.propertyName !== "transform") return;
+    this.classList.remove("buttonClick")
+}
+
