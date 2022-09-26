@@ -28,15 +28,13 @@ dataBank = [];
 
 function operate (data) {
     dataBank.push(data);  
-    console.log(dataBank)
     data = [];
-    let runningTotal = 0;
+    let runningTotal = 5;
     if (dataBank.length >=2){
-        runningTotal = parseInt(dataBank[0].match(/[1-9]+/g));
+        runningTotal = parseInt(dataBank[0].match(/(\w)+/g));
         if (dataBank[1] ==="="){
             dataBank[1] = dataBank[0] + "=";
         }
-        console.log(dataBank[0], dataBank[1])
         for (i = 0; i < dataBank.length-1; i ++){
             if (dataBank.at(i).at(-1) ==="+"){
                 runningTotal = add(runningTotal, dataBank[i+1]);
@@ -56,25 +54,25 @@ function operate (data) {
 }
 
 function add (runningTotal, rawString2) {
-    num2 = parseInt(rawString2.match(/[1-9]+/g));
+    num2 = parseInt(rawString2.match(/(\w)+/g));
     return runningTotal + num2;
 }
 function subtract (runningTotal, rawString2) {
-    num2 = parseInt(rawString2.match(/[1-9]+/g));
+    num2 = parseInt(rawString2.match(/(\w)+/g));
     return runningTotal - num2;
 }
 function multiply (runningTotal, rawString2) {
-    num2 = parseInt(rawString2.match(/[1-9]+/g));
+    num2 = parseInt(rawString2.match(/(\w)+/g));
     return runningTotal * num2;
 }
 function divide (runningTotal, rawString2) {
-    num2 = parseInt(rawString2.match(/[1-9]+/g));
+    num2 = parseInt(rawString2.match(/(\w)+/g));
     return runningTotal / num2;
 }
 function getInput(){
     data = [];
     let buttonPress = document.querySelectorAll("div.row");
-    sendOutput("0");
+    sendOutput("");
     for (i = 0; i<buttonPress.length; i++){
         buttonPress[i].addEventListener("click", (e) => {
             data += e.target.textContent; 
@@ -99,7 +97,7 @@ function getInput(){
         operate(data);
         data = [];
     }else if (e.target.textContent === "CE"){
-        sendOutput("0");
+        sendOutput("");
         dataBank = [];
         data = [];
         
