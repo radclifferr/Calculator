@@ -3,7 +3,7 @@ dataBank = [];
 function operate (data) {
     dataBank.push(data);  
     data = [];
-    let runningTotal = 0;
+    // let runningTotal = 0;
     if (dataBank.length >=2){
         runningTotal = parseFloat(dataBank[0].match(/(\w*\.?\w*)+/g));
         if (dataBank[1] ==="="){
@@ -12,18 +12,18 @@ function operate (data) {
         for (i = 0; i < dataBank.length-1; i ++){
             if (dataBank.at(i).at(-1) ==="+"){
                 runningTotal = add(runningTotal, dataBank[i+1]);
-                sendOutput(runningTotal);
+                sendOutput(Math.round(runningTotal*100)/100);
             }else if (dataBank.at(i).at(-1) ==="-"){
                 runningTotal = subtract(runningTotal, dataBank[i+1]);
-                sendOutput(runningTotal);
+                sendOutput(Math.round(runningTotal*100)/100);
             }else if (dataBank.at(i).at(-1) ==="*"){
                 runningTotal = multiply(runningTotal, dataBank[i+1]);
-                sendOutput(runningTotal);
+                sendOutput(Math.round(runningTotal*100)/100);
             }else if (dataBank.at(i).at(-1) ==="/"){
                 runningTotal = divide(runningTotal, dataBank[i+1]);
-                sendOutput(runningTotal);
+                sendOutput(Math.round(runningTotal*100)/100);
             }
-        }sendOutput(runningTotal);
+        }sendOutput(Math.round(runningTotal*100)/100);
     }
 }
 
@@ -50,8 +50,6 @@ function getInput(){
     for (i = 0; i<buttonPress.length; i++){
         buttonPress[i].addEventListener("click", (e) => {
         data += e.target.textContent; 
-
-
     if (e.target.textContent === "⌫"){
         data = data.slice(0, data.length -1);
         data = data.slice(0, data.length -1);
@@ -90,7 +88,7 @@ function getInput(){
 
 function sendOutput(target){
     const display = document.querySelector("#display");
-    display.textContent = Math.round(target * 100)/100;
+    display.textContent = target;
 }
 
 
