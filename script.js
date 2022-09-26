@@ -1,31 +1,5 @@
-//Generate button array and input calculator button text
-// function makeButtons () {
-//     const numberOfColumns = 4;
-//     const numberOfRows = 5;
-//     let column1 = ["⌫", 7, 4, 1, null];
-//     let column2 = ["CE", 8, 5, 2, 0];
-//     let column3 = [null, 9, 6, 3, "."];
-//     let column4 = ["/", "*", "-", "+","="];
-//     let columnData = [column1, column2, column3, column4];
-
-//     const buttonBox = document.querySelector("#buttonBox");
-//     for (i= 0; i < numberOfColumns; i++){
-//         const column = document.createElement("div");
-//         column.classList.add("column");
-//         buttonBox.appendChild(column);
-//         for (j = 0; j < numberOfRows; j++){
-//             const row = document.createElement("div");
-//             row.classList.add("row");
-//             row.textContent = columnData[i][j];
-//             column.appendChild(row);
-//         }
-//     }
-// }
-// makeButtons();
 getInput();
-
 dataBank = [];
-
 function operate (data) {
     dataBank.push(data);
     console.log(dataBank)  
