@@ -1,5 +1,5 @@
 # Calculator
-### This project is a calculator made with pure Javascript, CSS, and HTML
+### This project is a calculator made with vanalla Javascript, CSS, and HTML
 
 
 ## Demo
